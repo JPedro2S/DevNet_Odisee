@@ -1,0 +1,25 @@
+---
+- name: Gather information about IP interfaces on CSR100v
+  hosts: reserved
+  gather_facts: no
+  connection: local
+  tasks:
+    - name: Gather IP interfaces info
+      ios_command:
+        commands:
+          - show ip interface brief
+      register: interface_info
+
+    - name: Display IP interface information
+      debug:
+        var: interface_info.stdout_lines
+    
+    - name: Gather IPv6 interfaces info
+      ios_command:
+        commands:
+          - show ipv6 interface brief
+      register: interface6_info
+
+    - name: Display IPv6 interface information
+      debug:
+        var: interface6_info.stdout_lines
