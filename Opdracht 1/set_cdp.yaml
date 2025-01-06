@@ -1,0 +1,16 @@
+---
+- name: Enable CDP
+  hosts: reserved
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - name: Enable CDP on cat
+      ios_config:
+        lines:
+          - cdp run
+
+  handlers:
+    - name: save config
+      ios_command:
+        commands: wr
